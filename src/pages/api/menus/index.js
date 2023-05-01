@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       const client = await MongoClient.connect(process.env.MONGODB_URI);
       const db = client.db(process.env.MONGODB_DB);
       const collection = db.collection(process.env.MONGODB_COLLECTION);
-
+        
       const menus = await collection.find().toArray();
 
       client.close();

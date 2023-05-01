@@ -1,16 +1,17 @@
 import React from 'react';
 
 const OrderItem = ({ order, onCancel }) => {
-  const { id, items = [], total, createdAt, status } = order;
+  const { _id, items = [], createdAt, status, name, price } = order;
+  console.log(order);
 
   return (
-    <div>
-      <h3>Order ID: {id}</h3>
+    <div key={_id}>
+      <h3>Order ID: {name}</h3>
       <p>Items: {items.length}</p>
-      <p>Total: {total}</p>
+      <p>Price: {price}</p>
       <p>Created At: {createdAt}</p>
       <p>Status: {status}</p>
-      {status !== 'cancelled' && <button onClick={() => onCancel(id)}>Cancel Order</button>}
+      {status !== 'cancelled' && <button onClick={() => onCancel(_id)}>Cancel Order</button>}
     </div>
   );
 };

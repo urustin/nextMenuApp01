@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
+import Menu from '../components/Menu/Menu';
+
 import MenuPage from '../components/Menu/MenuPage';
 import PaymentForm from '../components/Payment/PaymentForm';
+import Footer2 from '../components/Footer2/Footer2'; // import Footer2
 
-const IndexPage = () => {
-  const [menuItems, setMenuItems] = useState([
-    // 메뉴 아이템 데이터를 가져올 수 있는 API 호출 로직 추가
-    // 예시:
-    // {
-    //   _id: '1',
-    //   name: 'Pizza',
-    //   price: 10,
-    //   imageUrl: 'https://example.com/pizza.jpg',
-    // },
-    // {
-    //   _id: '2',
-    //   name: 'Burger',
-    //   price: 5,
-    //   imageUrl: 'https://example.com/burger.jpg',
-    // },
-  ]);
+const IndexPage = ({ menus }) => {
+  const [menuItems, setMenuItems] = useState([]);
+  const [orders, setOrders] = useState([]);
+
+  // 총 Price 합을 계산하는 함수
+  const calculateTotalPrice = () => {
+    let total = 0;
+    for (const order of orders) {
+      const menuItem = menus.find((menu) => menu.id === order.menuId);
+      if (menuItem) {
+        total += menuItem.price;
+      }
+    }
+    return total;
+  };
 
   const handlePaymentSuccess = (details) => {
     // 결제 성공 시 처리 로직 작성
@@ -34,12 +35,13 @@ const IndexPage = () => {
 
   return (
     <div>
-      <MenuPage menuItems={menuItems} />
+      <Menu items={menus} orders={orders} setOrders={setOrders} />
       <PaymentForm
         total="50"
         onSuccess={handlePaymentSuccess}
         onError={handlePaymentError}
       />
+      <Footer2 total={calculateTotalPrice()} />
     </div>
   );
 };

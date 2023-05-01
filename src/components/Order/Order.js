@@ -4,7 +4,7 @@ import OrderItem from './OrderItem';
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
-
+  // console.log(orders.status);
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -22,11 +22,20 @@ const Order = () => {
     try {
       await axios.put(`/api/orders/${orderId}/cancel`);
       // 주문 상태를 취소로 업데이트
-      setOrders(orders.map((order) => (order.id === orderId ? { ...order, status: 'cancelled' } : order)));
+      await fetchOrders(); 
+      alert("Order Canceled!");
+       
+      // const updatedOrders = orders.filter((order) => order.status !== "cancelled");
+      // setOrders(updatedOrders);
+
+
+      // setOrders(orders.map((order) => (order.id === orderId ? { ...order, status: 'cancelled' } : order)));
+      
     } catch (error) {
       console.error('Error cancelling order:', error);
     }
   };
+  
 
   return (
     <div>

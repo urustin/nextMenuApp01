@@ -1,0 +1,28 @@
+  .navbarBox {
+    background-color: #f3f3f3;
+    padding: 1rem 0;
+  }
+  .navbar{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+  }
+  .navbar li {
+    width: 100px;
+    /* background-color: #333; */
+    
+  }
+  .navbar li:visited{
+    text-decoration: none;
+  }
+  .navbar li:hover{
+    opacity: 0.5;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+  

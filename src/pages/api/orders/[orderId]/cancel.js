@@ -1,36 +1,30 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 async function handleCancelOrder(req, res, orderId) {
   try {
     // Connect to MongoDB
     const client = await MongoClient.connect(process.env.MONGODB_URI);
     const db = client.db(process.env.MONGODB_DB);
-    const ordersCollection = db.collection('orders');
+    const ordersCollection = db.collection('col_orders');
 
     // Update order status to cancelled
-    const updateResult = await ordersCollection.updateOne(
-      { _id: new MongoClient.ObjectId(orderId) },
-      { $set: { status: 'cancelled' } }
-    );
+    // 이건 cancelled로 업데이트
+    // await ordersCollection.updateOne({ _id: new ObjectId(orderId) }, { $set: { status: 'cancelled' } });
+    //이건 지우기
+    const result = await ordersCollection.deleteOne({ _id: new ObjectId(orderId) });
 
-    if (updateResult.modifiedCount === 0) {
-      res.status(404).json({ error: '주문이 존재하지 않거나 이미 취소되었습니다.' });
-      return;
-    }
 
     // Close connection and return success
     client.close();
-    res.status(200).json({ message: '주문이 취소되었습니다.' });
+    res.status(200).json({ message: 'Order cancelled and deleted successfully', deletedCount: result.deletedCount });
   } catch (error) {
     console.error('Error cancelling order:', error);
-    res.status(500).json({ error: '주문을 취소하는 동안 오류가 발생했습니다.' });
+    res.status(500).json({ error: 'Failed to cancel the order.' });
   }
 }
 
 export default async function handler(req, res) {
-  const {
-    query: { orderId },
-  } = req;
+  const { orderId } = req.query;
 
   if (req.method === 'PUT') {
     await handleCancelOrder(req, res, orderId);

@@ -1,14 +1,14 @@
 // pages/menu.js
 import React from 'react';
-import Menu from '../components/Menu/Menu';
+import MenuPage from '../components/Menu/MenuPage';
 
-const MenuPage = () => {
+const MenuPage2 = () => {
   return (
     <div>
       <h1>Menu</h1>
-      <Menu />
+      <MenuPage />
     </div>
   );
 };
 
-export default MenuPage;
+export default MenuPage2;

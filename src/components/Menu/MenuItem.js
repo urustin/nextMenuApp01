@@ -8,9 +8,9 @@ const MenuItem = ({ menu }) => {
 
   const { id, name, price, image } = menu;
 
-  const handleOrderClick = async () => {
+  const handleCreateOrder = async () => {
     try {
-      const response = await axios.post('/api/orders', { menuId: id });
+      const response = await axios.post('/api/orders', { id , name, price });
       const orderNumber = response.data.orderNumber;
       alert(`주문이 완료되었습니다. 주문 번호: ${orderNumber}`);
     } catch (error) {
@@ -19,12 +19,15 @@ const MenuItem = ({ menu }) => {
     }
   };
 
+  const handleOrderClick = (id, name, price) => {
+    handleCreateOrder(id, name, price);
+  };
   return (
     <div>
       <h3>{name}</h3>
       <img src={image} alt={name} width="200" />
       <p>Price: {price}</p>
-      <button onClick={handleOrderClick}>주문하기</button>
+      <button onClick={()=>handleOrderClick(menu._id, menu.name, menu.price)}>주문하기</button>
     </div>
   );
 };
