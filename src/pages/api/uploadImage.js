@@ -19,7 +19,7 @@ handler.post(async (req, res) => {
   try {
     // MongoDB 연결
     const client = await MongoClient.connect(process.env.MONGODB_URI);
-    const db = client.db(process.env.MONGODB_DB);
+    const db = client.db(process.env.MONGODB_DATABASE);
     const collection = db.collection(process.env.MONGODB_COLLECTION);
 
     const bucket = new GridFSBucket(db);

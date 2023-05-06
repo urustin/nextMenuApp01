@@ -15,6 +15,9 @@ if (!process.env.MONGODB_URI) {
 
 export async function connectToDatabase() {
     try {
+        console.log("Using database:", process.env.MONGODB_DATABASE);
+// database = await mongoClient.db(process.env.MONGODB_DATABASE);
+
         if (mongoClient && database) {
             return { mongoClient, database };
         }

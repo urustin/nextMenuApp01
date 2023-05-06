@@ -4,9 +4,9 @@ async function handleGetOrders(req, res) {
   try {
     // 여기에 MongoDB 연결 및 쿼리 코드를 구현합니다.
     const client = await MongoClient.connect(process.env.MONGODB_URI);
-    const db = client.db(process.env.MONGODB_DB);
+    const db = client.db(process.env.MONGODB_DATABASE);
     // console.log(db);
-    const ordersCollection = db.collection('col_orders');
+    const ordersCollection = db.collection('col_order');
     // console.log(ordersCollection);
 
     // Fetch orders from database
@@ -25,8 +25,8 @@ async function handleCreateOrder(req, res) {
   try {
     // Connect to MongoDB
     const client = await MongoClient.connect(process.env.MONGODB_URI);
-    const db = client.db(process.env.MONGODB_DB);
-    const ordersCollection = db.collection('col_orders');
+    const db = client.db(process.env.MONGODB_DATABASE);
+    const ordersCollection = db.collection('col_order');
     // console.log(req.body);
     // Create new order
     const newOrder = {

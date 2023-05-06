@@ -4,8 +4,8 @@ async function handleCancelOrder(req, res, orderId) {
   try {
     // Connect to MongoDB
     const client = await MongoClient.connect(process.env.MONGODB_URI);
-    const db = client.db(process.env.MONGODB_DB);
-    const ordersCollection = db.collection('col_orders');
+    const db = client.db(process.env.MONGODB_DATABASE);
+    const ordersCollection = db.collection('col_order');
 
     // Update order status to cancelled
     // 이건 cancelled로 업데이트

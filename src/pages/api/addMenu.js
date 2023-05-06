@@ -14,10 +14,13 @@ export default async function handler(req, res) {
     const collection = database.collection(process.env.MONGODB_COLLECTION);
 
     // console.log(collection);
-    // console.log(collection.find({}));
+    await console.log("AA"+collection.find().toArray());
+    console.log("Using database:", process.env.MONGODB_DATABASE);
+// database = await mongoClient.db(process.env.MONGODB_DATABASE);
 
     try {
-      await database.collection("col_menu").insertOne({ id, name, price });
+      await collection.insertOne({ id, name, price });
+      console.log("Using database:", process.env.MONGODB_DATABASE);
       res.status(201).json({ message: "Menu added successfully" });
     } catch (error) {
       res.status(500).json({ message: "Error adding menu", error: error.message });
