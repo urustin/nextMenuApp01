@@ -24,13 +24,13 @@ export default async function handler(req, res) {
       logger.info("menuStart");
       console.time("2");
       const client = await MongoClient.connect(process.env.MONGODB_URI);
+      console.info("clientLoad");
       const db = client.db(process.env.MONGODB_DATABASE);
+      console.info("dbLoad");
       const collection = db.collection(process.env.MONGODB_COLLECTION);
-        
-      // console.log("Using database:", process.env.MONGODB_DATABASE);
-      // database = await mongoClient.db(process.env.MONGODB_DATABASE);
-
+      console.info("colLoad");
       const menus = await collection.find().toArray();
+      console.info("menuQuery");
       // console.log(menus);
       client.close();
       res.status(200).json(menus);
