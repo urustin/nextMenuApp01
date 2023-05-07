@@ -11,8 +11,12 @@ const MenuPage = () => {
     console.time("fetchMenu");
     const fetchMenus = async () => {
       try {
+        const startTime = Date.now()
         const response = await axios.get('/api/menus');
         setMenus(response.data);
+        const endTime = Date.now(); // 요청 종료 시간 기록
+        const elapsedTime = endTime - startTime; // 경과 시간 계산
+        console.log(`Request processing time: ${elapsedTime} ms`);
       } catch (error) {
         console.error('Error fetching menus:', error);
       }

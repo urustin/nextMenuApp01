@@ -20,7 +20,8 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       // const client = await connectToDatabase();
-      console.info("menuStart");
+      // console.info("menuStart");
+      logger.info("menuStart");
       console.time("2");
       const client = await MongoClient.connect(process.env.MONGODB_URI);
       const db = client.db(process.env.MONGODB_DATABASE);
