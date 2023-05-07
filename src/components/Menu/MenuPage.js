@@ -8,6 +8,7 @@ const MenuPage = () => {
   const [category, setCategory] = useState('all');
 
   useEffect(() => {
+    console.time("fetchMenu");
     const fetchMenus = async () => {
       try {
         const response = await axios.get('/api/menus');
@@ -18,6 +19,8 @@ const MenuPage = () => {
     };
 
     fetchMenus();
+    // console.timeLog("fetchMenu");
+    console.timeEnd("fetchMenu");
   }, []);
 
   const handleSearchChange = (e) => {
