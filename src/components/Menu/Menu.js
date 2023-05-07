@@ -20,7 +20,7 @@ const Menu = () => {
     fetchMenus();
   }, []);
   // console.time("menuFront");
-  console.timelog("menuFront");
+  console.timeLog("menuFront");
   console.timeEnd("menuFront");
   return (
     <div>

@@ -13,7 +13,7 @@ if (!process.env.MONGODB_URI) {
     throw new Error('Please add your Mongo URI to .env.local')
 }
 
-export async function connectToDatabase() {
+export default async function connectToDatabase() {
     try {
         console.time('1');
         // console.log("Using database:", process.env.MONGODB_DATABASE);
