@@ -2,42 +2,53 @@
 import { MongoClient } from 'mongodb';
 import logger from '../../../lib/logger';
 
-// let cachedClient = null;
 
-// async function connectToDatabase() {
-//   if (cachedClient) {
-//     return cachedClient;
-//   }
-//   const client = await new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-//   // const client = await MongoClient.connect(process.env.MONGODB_URI);
-//   cachedClient = client;
-//   return client;
-// }
+
+
+let logObject=[];
+
+function logToServer(message) {
+  const timestamp = Date.now();
+  // const time2 = standard - timestamp;
+  
+  let tempLog = {
+    timestamp: timestamp,
+    message: message,
+  };
+  logObject.push(tempLog);
+  // console.log(logObject);
+}
 
 
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      // const client = await connectToDatabase();
-      // console.info("menuStart");
-      logger.info("menuStart");
-      console.time("2");
       const client = await MongoClient.connect(process.env.MONGODB_URI);
-      console.info("clientLoad");
+      logToServer("clientLoad");
+      // console.timeLog("2");
       const db = client.db(process.env.MONGODB_DATABASE);
-      console.info("dbLoad");
+      logToServer("dbLoad");
+      // console.timeLog("2");
       const collection = db.collection(process.env.MONGODB_COLLECTION);
-      console.info("colLoad");
+      logToServer("colLoad");
+      // console.timeLog("2");
       const menus = await collection.find().toArray();
-      console.info("menuQuery");
+      logToServer("menuQuery");
+      // console.timeLog("2");
       // console.log(menus);
       client.close();
-      res.status(200).json(menus);
-      console.info("menuLoad");
-      console.timeLog("2");
-      console.timeEnd("2");
-      logger.info('menu_Load');
+      let big = [];
+      big.push(menus);
+      big.push(logObject);
+      res.status(200).json(big);
+      // res.status(201).json(logObject)
+      // res.status(200).json(menus);
+      // console.info("menuLoad");
+      // console.timeLog("2");
+      // console.timeEnd("2");
+      // logToServer(1,'menu_Load');
+
     } catch (error) {
       console.error('Error fetching menus:', error);
       logger.info('menu_error');

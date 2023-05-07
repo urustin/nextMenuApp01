@@ -1,5 +1,6 @@
 // logger.js
 const winston = require('winston');
+// import BrowserConsole from './browserConsole';
 
 const logger = winston.createLogger({
   level: 'info',
@@ -8,9 +9,12 @@ const logger = winston.createLogger({
     winston.format.json()
   ),
   transports: [
+    
     new winston.transports.Console(),
     new winston.transports.File({ filename: 'menumenu.log' }),
   ],
+  
 });
+
 
 module.exports = logger;
