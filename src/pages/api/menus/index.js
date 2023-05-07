@@ -24,6 +24,7 @@ function logToServer(message) {
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
+      logToServer("start");
       const client = await MongoClient.connect(process.env.MONGODB_URI);
       logToServer("clientLoad");
       // console.timeLog("2");
